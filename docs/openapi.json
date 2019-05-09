@@ -1,0 +1,158 @@
+{
+    "components": {
+        "schemas": {
+            "Reason": {
+                "properties": {
+                    "description": {
+                        "title": "Description",
+                        "type": "string"
+                    },
+                    "error_code": {
+                        "title": "Error_Code",
+                        "type": "string"
+                    },
+                    "summary": {
+                        "title": "Summary",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "error_code",
+                    "summary",
+                    "description"
+                ],
+                "title": "Reason",
+                "type": "object"
+            }
+        }
+    },
+    "info": {
+        "contact": {
+            "email": "support@fanduel.com",
+            "name": "Stream pointbreak",
+            "url": "www.fanduel.com"
+        },
+        "description": "Fanduel API providing RESTful interface for IGT's sportsbook",
+        "license": {
+            "name": "",
+            "url": "http://www.example.com/support"
+        },
+        "termsOfService": "",
+        "title": "Sportsbook adaptor API",
+        "version": "0.0.0"
+    },
+    "openapi": "3.0.0",
+    "paths": {
+        "/ping": {
+            "get": {
+                "description": "Check if the api is responsive",
+                "operationId": "ping",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "enum": [
+                                        "pong"
+                                    ],
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "properties": {
+                                                "description": {
+                                                    "title": "Description",
+                                                    "type": "string"
+                                                },
+                                                "error_code": {
+                                                    "enum": [
+                                                        "SERVER.ERROR.1"
+                                                    ],
+                                                    "title": "Error_Code",
+                                                    "type": "string"
+                                                },
+                                                "reasons": {
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Reason"
+                                                    },
+                                                    "title": "Reasons",
+                                                    "type": "array"
+                                                },
+                                                "summary": {
+                                                    "enum": [
+                                                        "Something went wrong"
+                                                    ],
+                                                    "title": "Summary",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "error_code",
+                                                "summary",
+                                                "description"
+                                            ],
+                                            "title": "ServerError",
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "description": {
+                                                    "title": "Description",
+                                                    "type": "string"
+                                                },
+                                                "error_code": {
+                                                    "enum": [
+                                                        "SERVER.ERROR.2"
+                                                    ],
+                                                    "title": "Error_Code",
+                                                    "type": "string"
+                                                },
+                                                "reasons": {
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Reason"
+                                                    },
+                                                    "title": "Reasons",
+                                                    "type": "array"
+                                                },
+                                                "summary": {
+                                                    "enum": [
+                                                        "Unhandled exception"
+                                                    ],
+                                                    "title": "Summary",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "error_code",
+                                                "summary",
+                                                "description"
+                                            ],
+                                            "title": "UnhandledException",
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "summary": "Ping Endpoint"
+            }
+        }
+    },
+    "servers": [
+        {
+            "description": "Development server",
+            "url": "http://0.0.0.0:64932"
+        }
+    ]
+}
